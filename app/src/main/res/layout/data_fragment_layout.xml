@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+
+    <data>
+
+        <variable
+            name="dataViewModel"
+            type="com.test.swissborgcrypto.viewmodels.DataFragmentViewModel" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/btc_image"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="20dp"
+            android:src="@drawable/bitcoin_pic"
+            app:layout_constraintEnd_toStartOf="@id/btc_pair_name"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/btc_pair_name"
+            style="@style/TextAppearance.AppCompat.Title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:text="@{dataViewModel.btcPairLiveData.pairName}"
+            app:layout_constraintBottom_toBottomOf="@id/btc_image"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/btc_image"
+            app:layout_constraintTop_toTopOf="@id/btc_image"
+            tools:text="BTC-USD" />
+
+        <GridLayout
+            android:id="@+id/pair_data_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:columnCount="2"
+            android:rowCount="2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btc_image">
+
+            <TextView
+                android:id="@+id/btc_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="15dp"
+                android:text="@{@string/btc_price(dataViewModel.btcPairLiveData.lastPrice)}"
+                android:textAppearance="@style/TextAppearance.AppCompat.Widget.PopupMenu.Small"
+                android:textColor="@color/colorGold"
+                tools:text="Last price: 10260" />
+
+            <TextView
+                android:id="@+id/btc_volume"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="15dp"
+                android:textColor="@color/colorPinky"
+                android:text="@{@string/btc_volume(dataViewModel.btcPairLiveData.volume)}"
+                android:textAppearance="@style/TextAppearance.AppCompat.Widget.PopupMenu.Small"
+                tools:text="Volume: 47,100,100" />
+
+            <TextView
+                android:id="@+id/btc_high"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="15dp"
+                android:text="@{@string/btc_high(dataViewModel.btcPairLiveData.high)}"
+                android:textColor="@color/colorNiceGreen"
+                android:textAppearance="@style/TextAppearance.AppCompat.Widget.PopupMenu.Small"
+                tools:text="High: 10270" />
+
+            <TextView
+                android:id="@+id/btc_low"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="15dp"
+                android:textColor="@color/colorPurple"
+                android:text="@{@string/btc_low(dataViewModel.btcPairLiveData.low)}"
+                android:textAppearance="@style/TextAppearance.AppCompat.Widget.PopupMenu.Small"
+                tools:text="Low: 10160" />
+        </GridLayout>
+
+        <com.test.swissborgcrypto.ui.CryptoOrdersMeter
+            android:id="@+id/crypto_order_meter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            app:orderMeterLevel="@{dataViewModel.bookOrderBidPercentage}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/pair_data_layout" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toStartOf="@id/crypto_order_meter"
+            android:layout_marginEnd="20dp"
+            app:layout_constraintBottom_toBottomOf="@id/crypto_order_meter"
+            android:textAppearance="@style/TextAppearance.AppCompat.Title"
+            android:textColor="@color/colorGreen"
+            android:text="BIDS"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toEndOf="@id/crypto_order_meter"
+            app:layout_constraintBottom_toBottomOf="@id/crypto_order_meter"
+            android:textAppearance="@style/TextAppearance.AppCompat.Title"
+            android:layout_marginStart="20dp"
+            android:textColor="@color/colorRed"
+            android:text="ASKS"/>
+
+        <LinearLayout
+            android:id="@+id/order_book_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="10dp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:weightSum="2"
+            android:animateLayoutChanges="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/crypto_order_meter">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/bid_order_book"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginEnd="3dp"
+                app:orderBookList="@{dataViewModel.bidOrderBookLiveData}" />
+
+            <View
+                android:layout_width="2dp"
+                android:layout_height="match_parent"
+                android:background="@color/colorAccent"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/ask_order_book"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="3dp"
+                android:layout_weight="1"
+                app:orderBookList="@{dataViewModel.askOrderBookLiveData}" />
+
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

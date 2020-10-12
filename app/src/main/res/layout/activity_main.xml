@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/root_layout"
+    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    tools:context=".ui.MainActivity">
+
+    <FrameLayout
+        android:id="@+id/logo_layout"
+        android:layout_width="match_parent"
+        android:paddingStart="80dp"
+        android:paddingEnd="80dp"
+        android:layout_height="110dp">
+    <ImageView
+        android:id="@+id/logo_swiss"
+        android:layout_width="182dp"
+        android:layout_height="55dp"
+        android:layout_gravity="top|start"
+        android:src="@drawable/swiss"/>
+    <ImageView
+        android:id="@+id/logo_borg"
+        android:layout_width="182dp"
+        android:layout_height="55dp"
+        android:layout_gravity="bottom|end"
+        android:src="@drawable/borg"/>
+    </FrameLayout>
+</LinearLayout>

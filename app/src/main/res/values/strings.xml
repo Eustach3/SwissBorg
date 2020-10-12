@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">SwissBorgCrypto</string>
+    <string name="btc_price">Last price: %s $</string>
+    <string name="btc_volume">Volume: %s $</string>
+    <string name="btc_high">High: %s $</string>
+    <string name="btc_low">Low: %s $</string>
+    <string name="crypto_meter_bid_percent">%s %%</string>
+    <string name="crypto_meter_ask_percent">%s %%</string>
+</resources>
